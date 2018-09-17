@@ -6,15 +6,28 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
    
-    <dx:BootstrapGridView ID="BootstrapGridView1" runat="server" AutoGenerateColumns="False" DataSourceID="dtsBooks">
-        <Columns>
-            <dx:BootstrapGridViewTextColumn FieldName="ISBN" VisibleIndex="0">
-            </dx:BootstrapGridViewTextColumn>
-            <dx:BootstrapGridViewTextColumn FieldName="title" VisibleIndex="1">
-            </dx:BootstrapGridViewTextColumn>
-            <dx:BootstrapGridViewTextColumn FieldName="price" VisibleIndex="2">
-            </dx:BootstrapGridViewTextColumn>
-        </Columns>
-    </dx:BootstrapGridView>
     <asp:XmlDataSource ID="dtsBooks" runat="server" DataFile="~/App_Data/Bookstore.xml"></asp:XmlDataSource>
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ISBN" DataSourceID="dtsBooks" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" Width="549px">
+        <Columns>
+            <asp:CommandField ShowSelectButton="True" />
+            <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
+            <asp:BoundField DataField="title" HeaderText="title" SortExpression="title" />
+            <asp:BoundField DataField="price" HeaderText="price" SortExpression="price" />
+        </Columns>
+    </asp:GridView>
+    <asp:XmlDataSource ID="dtsComments" runat="server" DataFile="~/App_Data/Bookstore.xml" XPath="/bookstore/book/comments/userComment"></asp:XmlDataSource>
+    <asp:DataList ID="DataList1" runat="server" DataSourceID="dtsComments" OnSelectedIndexChanged="DataList1_SelectedIndexChanged" Visible="False">
+        <ItemTemplate>
+            User rating:
+            <asp:Label ID="ratingLabel" runat="server" Text='<%# Eval("rating") %>' />
+            <br />
+            omment:
+            <asp:Label ID="commentLabel" runat="server" Text='<%# Eval("comment") %>' />
+            <br />
+<br />
+        </ItemTemplate>
+        <SeparatorTemplate>
+            <hr />
+        </SeparatorTemplate>
+    </asp:DataList>
 </asp:Content>
