@@ -11,4 +11,11 @@ public partial class Orders : Page
     {
 
     }
+
+    protected void gridInvoice_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        GridViewRow row = gridInvoice.Rows[e.NewEditIndex];
+        TableCellCollection cells = row.Cells;
+
+    }
 }
