@@ -11,4 +11,11 @@ public partial class Books : System.Web.UI.Page
     {
 
     }
+
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        String isbn = (String)GridView1.DataKeys[GridView1.SelectedIndex].Value;
+        XmlDataSource2.XPath = String.Format("/bookstore/book[@ISBN='{0}']/comments/userComment", isbn);
+        GridView2.Visible = true;
+    }
 }
