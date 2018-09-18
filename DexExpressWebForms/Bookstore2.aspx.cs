@@ -45,6 +45,8 @@ public partial class Bookstore2 : System.Web.UI.Page
         tb.Value = "Custom value";
         table.Rows[0].Cells[0].Controls.Add(tb);
 
+        //object value = ASPxGridView1.GetRowValuesByKeyValue(ASPxGridView1.EditingRowVisibleIndex, "isbn");
+
         /*ASPxSpinEdit spin = new ASPxSpinEdit();
         spin.ID = "spinUnitPrice";
         //spin.CssFilePath = @"~/App_Themes/Soft Orange/{0}/styles.css";
@@ -63,6 +65,11 @@ public partial class Bookstore2 : System.Web.UI.Page
         tr.ReplacementType = GridViewTemplateReplacementType.EditFormCancelButton;
         table.Rows[1].Cells[2].Controls.Add(tr);*/
 
+        //var selct = ASPxGridView1.Selection;
+
+        //String isbn = (String)ASPxGridView1.DataKeys[ASPxGridView1.SelectedIndex].Value;
+        //XmlDataSource2.XPath = String.Format("/bookstore/book[@ISBN='{0}']/comments/userComment", _editingISBN);
+        //ASPxGridView2.Visible = true;
     }
 
     Table CreateHtmlTable()
@@ -79,4 +86,15 @@ public partial class Bookstore2 : System.Web.UI.Page
         return table;
     }
 
+    private string _editingISBN;
+
+    protected void ASPxGridView1_StartRowEditing(object sender, DevExpress.Web.Data.ASPxStartRowEditingEventArgs e)
+    {
+         string editingISBN = (string)e.EditingKeyValue;
+
+        XmlDataSource2.XPath = String.Format("/bookstore/book[@ISBN='{0}']/comments/userComment", editingISBN);
+        //XmlDataSource2.DataBind();
+        ASPxGridView2.Visible = true;
+        //ASPxGridView2.DataBind();
+    }
 }
